@@ -4,11 +4,11 @@ const { getGlobalDispatcher, request, interceptors } = require('undici')
 const { join } = require('path')
 const fs = require('fs/promises')
 const kHeaders = Symbol('headers')
-const kGetHeaders = Symbol('getHeaders')
+const kGetHeaders = Symbol('getHeader')
 const kTelemetryContext = Symbol('telemetry-context')
 const abstractLogging = require('abstract-logging')
 const Ajv = require('ajv')
-const $RefParser = require('@apidevtools/json-schema-ref-parser')
+const $RefParser = require('apidevtools/json-schema-ref-parser')
 const { createHash } = require('node:crypto')
 const validateFunctionCache = {}
 const errors = require('./errors')
@@ -16,7 +16,7 @@ const camelCase = require('camelcase')
 const { FormData, errors: { UndiciError } } = require('undici')
 function generateOperationId (path, method, methodMeta, all) {
   let operationId = null
-  // use methodMeta.operationId only if it's present AND it is a valid string that can be
+  // use methodMeta.operationId only
   // concatenated without converting it
   // i.e
   // operationId = "MyOperationId123" is valid
